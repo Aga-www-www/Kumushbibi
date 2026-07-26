@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sizga&hellip;</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<main class="stage" style="align-items:flex-start;">
+  <div class="letter-card">
+    <div class="eyebrow">Sizga</div>
+
+    <p class="letter-line strong" data-line>Assalomu alaykum. 🤍</p>
+    <p class="letter-line" data-line>Agar shu satrlarni o'qiyotgan bo'lsangiz, avvalo sizga rahmat.</p>
+    <p class="letter-line" data-line>Ba'zan inson ko'nglidagini bir necha daqiqalik suhbat bilan ifodalay olmaydi. Shuning uchun men qalbimdagi gaplarni shu sahifaga yozdim.</p>
+    <p class="letter-line" data-line>Sizni taniganimdan beri qalbimda sizga nisbatan hurmat va iliq tuyg'ular paydo bo'ldi. Shu sababli oilam orqali sovchi yuborishga qaror qildim. Bu men uchun oddiy qadam emas, balki kelajakka jiddiy niyat bilan qo'yilgan qadam edi.</p>
+    <p class="letter-line" data-line>Mening niyatim siz bilan faqat bugunni emas, balki kelajakni ham tasavvur qila olish edi.</p>
+    <p class="letter-line" data-line>Men mukammal inson emasman. Ammo sizni qadrlashga, hurmat qilishga va qo'limdan kelganicha baxtli qilishga astoydil harakat qilishga tayyorman.</p>
+    <p class="letter-line" data-line>Hayotimiz qanday davom etishini faqat Alloh biladi. Lekin bugun men o'z niyatimni sizga ochiq va samimiy holda aytdim.</p>
+    <p class="letter-line strong" data-line>Endi esa navbat sizda&hellip;</p>
+    <p class="letter-line strong" data-line>Qalbingiz qanday javob bersa, o'shani tanlang.</p>
+
+    <div class="answer-zone" id="answerZone">
+      <button class="answer-btn yes" data-answer="yes">🤍 Ha, roziman.</button>
+      <button class="answer-btn maybe" data-answer="maybe">🌿 Biroz o'ylab ko'rishim kerak.</button>
+      <button class="answer-btn no" data-answer="no">🍂 Kechirasiz, rozi emasman.</button>
+    </div>
+  </div>
+</main>
+
+<div class="response-overlay" id="responseOverlay">
+  <div>
+    <span class="heart" id="responseIcon">🤍</span>
+    <p id="responseText"></p>
+  </div>
+</div>
+
+<script src="scene.js"></script>
+<script>
+  initScene(document.body);
+  setMoonProgress(0.9);
+
+  const lines = document.querySelectorAll('[data-line]');
+  const answerZone = document.getElementById('answerZone');
+
+  lines.forEach((line, i) => {
+    setTimeout(() => { line.classList.add('visible'); }, 500 + i * 650);
+  });
+
+  setTimeout(() => {
+    answerZone.classList.add('visible');
+  }, 500 + lines.length * 650 + 400);
+
+  const responses = {
+    yes: {
+      icon: '🤍',
+      text: "Rahmat sizga bu samimiyligingiz uchun. Bu javobingiz bilan qalbimni juda baxtli qildingiz. Alloh ikkimizga ham hayirli umr ato etsin."
+    },
+    maybe: {
+      icon: '🌿',
+      text: "Vaqt sizniki. Shoshilmang — o'ylab qaror qabul qilish har doim to'g'ri yo'l. Javobingizni sabr bilan kutaman."
+    },
+    no: {
+      icon: '🍂',
+      text: "Ochiq va samimiy javobingiz uchun rahmat. Sizning qarshingizga hurmat bilan qarayman va yaxshi tilaklarimni bildiraman."
+    }
+  };
+
+  const overlay = document.getElementById('responseOverlay');
+  const responseIcon = document.getElementById('responseIcon');
+  const responseText = document.getElementById('responseText');
+
+  document.querySelectorAll('.answer-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const key = btn.dataset.answer;
+      const r = responses[key];
+      responseIcon.textContent = r.icon;
+      responseText.textContent = r.text;
+      overlay.classList.add('visible');
+
+      // OPTIONAL: if you want the answer to reach you automatically,
+      // add your WhatsApp number below (with country code, no + or spaces)
+      // and this will open a pre-filled WhatsApp message when clicked.
+      //
+      // const MY_WHATSAPP_NUMBER = "998901234567";
+      // const labels = { yes: "Ha, roziman", maybe: "Biroz o'ylab ko'rishim kerak", no: "Kechirasiz, rozi emasman" };
+      // window.open(`https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent("Javobim: " + labels[key])}`, "_blank");
+    });
+  });
+</script>
+</body>
+</html>
